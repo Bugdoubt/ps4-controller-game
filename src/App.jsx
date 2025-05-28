@@ -13,7 +13,7 @@ const buttonMap = {
   Circle:    { cx: 1093, cy: 212, index: 1, shape: "circle" },
   X:         { cx: 1007, cy: 300, index: 0, shape: "circle" },
   R3:        { cx: 810, cy: 378, index: 11, shape: "circle" },
-  L3:        { cx: 415, cy: 377, index: 10, shape: "circle" },
+  L3:        { cx: 418, cy: 377, index: 10, shape: "circle" },
   L1:        { cx: 246, cy: 25, index: 4, shape: "rect" },
   L2:        { cx: 294, cy: 30, index: 6, analog: true, shape: "rect" },
   R1:        { cx: 963, cy: 30, index: 5, shape: "rect" },
@@ -79,16 +79,16 @@ function App() {
       case "rect":
         return <rect x={cx - 30} y={cy - 15} width="60" height="30" rx="8" fill={fill} stroke={stroke} strokeWidth={3} />;
       case "up":
-        return <polygon points={`${cx - 50},${cy - 40} ${cx + 30},${cy - 40} ${cx + 50},${cy} ${cx + 30},${cy + 40} ${cx - 50},${cy + 40}`} fill={fill} stroke={stroke} strokeWidth={3} />;
+        return <polygon points={`${cx},${cy - 30} ${cx - 15},${cy + 15} ${cx + 15},${cy + 15}`} fill={fill} stroke={stroke} strokeWidth={3} strokeLinejoin="round" />;
         return <polygon points={`${cx},${cy - 40} ${cx - 30},${cy + 20} ${cx + 30},${cy + 20}`} fill={fill} stroke={stroke} strokeWidth={3} />;
       case "down":
-        return <polygon points={`${cx + 50},${cy - 40} ${cx - 30},${cy - 40} ${cx - 50},${cy} ${cx - 30},${cy + 40} ${cx + 50},${cy + 40}`} fill={fill} stroke={stroke} strokeWidth={3} />;
+        return <polygon points={`${cx},${cy + 30} ${cx - 15},${cy - 15} ${cx + 15},${cy - 15}`} fill={fill} stroke={stroke} strokeWidth={3} strokeLinejoin="round" />;
         return <polygon points={`${cx},${cy + 40} ${cx - 30},${cy - 20} ${cx + 30},${cy - 20}`} fill={fill} stroke={stroke} strokeWidth={3} />;
       case "left":
-        return <polygon points={`${cx - 40},${cy - 50} ${cx - 40},${cy + 30} ${cx},${cy + 50} ${cx + 40},${cy + 30} ${cx + 40},${cy - 50}`} fill={fill} stroke={stroke} strokeWidth={3} />;
+        return <polygon points={`${cx - 30},${cy} ${cx + 15},${cy - 15} ${cx + 15},${cy + 15}`} fill={fill} stroke={stroke} strokeWidth={3} strokeLinejoin="round" />;
         return <polygon points={`${cx - 40},${cy} ${cx + 20},${cy - 30} ${cx + 20},${cy + 30}`} fill={fill} stroke={stroke} strokeWidth={3} />;
       case "right":
-        return <polygon points={`${cx + 40},${cy - 50} ${cx + 40},${cy + 30} ${cx},${cy + 50} ${cx - 40},${cy + 30} ${cx - 40},${cy - 50}`} fill={fill} stroke={stroke} strokeWidth={3} />;
+        return <polygon points={`${cx + 30},${cy} ${cx - 15},${cy - 15} ${cx - 15},${cy + 15}`} fill={fill} stroke={stroke} strokeWidth={3} strokeLinejoin="round" />;
         return <polygon points={`${cx + 40},${cy} ${cx - 20},${cy - 30} ${cx - 20},${cy + 30}`} fill={fill} stroke={stroke} strokeWidth={3} />;
       default:
         return null;
