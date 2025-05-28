@@ -8,20 +8,20 @@ const buttons = [
 ];
 
 const buttonMap = {
-  Square:    { cx: 912, cy: 209, index: 2 },
-  Triangle:  { cx: 1002, cy: 123, index: 3 },
-  Circle:    { cx: 1093, cy: 212, index: 1 },
-  X:         { cx: 1007, cy: 300, index: 0 },
-  R3:        { cx: 810, cy: 378, index: 11 },
-  L3:        { cx: 412, cy: 377, index: 10 },
-  L1:        { cx: 246, cy: 9, index: 4 },
-  L2:        { cx: 294, cy: 14, index: 6, analog: true },
-  R1:        { cx: 963, cy: 12, index: 5 },
-  R2:        { cx: 1029, cy: 12, index: 7, analog: true },
-  "D-Up":    { cx: 222, cy: 146, index: 12 },
-  "D-Down":  { cx: 223, cy: 275, index: 13 },
-  "D-Left":  { cx: 157, cy: 212, index: 14 },
-  "D-Right": { cx: 284, cy: 214, index: 15 }
+  Square:    { cx: 912, cy: 209, index: 2, shape: "circle" },
+  Triangle:  { cx: 1002, cy: 123, index: 3, shape: "circle" },
+  Circle:    { cx: 1093, cy: 212, index: 1, shape: "circle" },
+  X:         { cx: 1007, cy: 300, index: 0, shape: "circle" },
+  R3:        { cx: 810, cy: 378, index: 11, shape: "circle" },
+  L3:        { cx: 412, cy: 377, index: 10, shape: "circle" },
+  L1:        { cx: 246, cy: 9, index: 4, shape: "rect" },
+  L2:        { cx: 294, cy: 14, index: 6, analog: true, shape: "rect" },
+  R1:        { cx: 963, cy: 12, index: 5, shape: "rect" },
+  R2:        { cx: 1029, cy: 12, index: 7, analog: true, shape: "rect" },
+  "D-Up":    { cx: 222, cy: 146, index: 12, shape: "up" },
+  "D-Down":  { cx: 223, cy: 275, index: 13, shape: "down" },
+  "D-Left":  { cx: 157, cy: 212, index: 14, shape: "left" },
+  "D-Right": { cx: 284, cy: 214, index: 15, shape: "right" }
 };
 
 function App() {
@@ -67,23 +67,38 @@ function App() {
     }
   };
 
+  const renderShape = (label, cx, cy, shape) => {
+    const size = 25;
+    const isActive = label === target;
+    const fill = isActive ? "red" : "transparent";
+    const stroke = isActive ? "white" : "transparent";
+
+    switch (shape) {
+      case "circle":
+        return <circle cx={cx} cy={cy} r={size} fill={fill} stroke={stroke} strokeWidth={3} />;
+      case "rect":
+        return <rect x={cx - 30} y={cy - 15} width="60" height="30" rx="8" fill={fill} stroke={stroke} strokeWidth={3} />;
+      case "up":
+        return <polygon points={`${cx},${cy - 20} ${cx - 15},${cy + 10} ${cx + 15},${cy + 10}`} fill={fill} stroke={stroke} strokeWidth={3} />;
+      case "down":
+        return <polygon points={`${cx},${cy + 20} ${cx - 15},${cy - 10} ${cx + 15},${cy - 10}`} fill={fill} stroke={stroke} strokeWidth={3} />;
+      case "left":
+        return <polygon points={`${cx - 20},${cy} ${cx + 10},${cy - 15} ${cx + 10},${cy + 15}`} fill={fill} stroke={stroke} strokeWidth={3} />;
+      case "right":
+        return <polygon points={`${cx + 20},${cy} ${cx - 10},${cy - 15} ${cx - 10},${cy + 15}`} fill={fill} stroke={stroke} strokeWidth={3} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="flex flex-col items-center mt-6">
       <h1 className="text-white text-2xl mb-4">Press: {target}</h1>
       <div className="relative" style={{ width: 1229, height: 768 }}>
         <img src="/controller_bg.png" alt="Controller" className="absolute top-0 left-0 w-full h-full" />
         <svg className="absolute top-0 left-0" width="1229" height="768">
-          {Object.entries(buttonMap).map(([label, { cx, cy }]) => (
-            <g key={label}>
-              <circle
-                cx={cx}
-                cy={cy}
-                r={25}
-                fill={label === target ? "red" : "transparent"}
-                stroke={label === target ? "white" : "transparent"}
-                strokeWidth={3}
-              />
-            </g>
+          {Object.entries(buttonMap).map(([label, { cx, cy, shape }]) => (
+            <g key={label}>{renderShape(label, cx, cy, shape)}</g>
           ))}
         </svg>
       </div>
