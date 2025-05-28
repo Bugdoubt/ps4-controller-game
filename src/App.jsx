@@ -8,20 +8,20 @@ const buttons = [
 ];
 
 const buttonMap = {
-  X: { cx: 950, cy: 510, index: 0 },
-  Circle: { cx: 1015, cy: 440, index: 1 },
-  Square: { cx: 875, cy: 440, index: 2 },
-  Triangle: { cx: 950, cy: 375, index: 3 },
-  L1: { cx: 330, cy: 115, index: 4 },
-  R1: { cx: 880, cy: 115, index: 5 },
-  L2: { cx: 330, cy: 60, index: 6, analog: true },
-  R2: { cx: 880, cy: 60, index: 7, analog: true },
-  L3: { cx: 420, cy: 520, index: 10 },
-  R3: { cx: 800, cy: 520, index: 11 },
-  "D-Up": { cx: 320, cy: 380, index: 12 },
-  "D-Down": { cx: 320, cy: 470, index: 13 },
-  "D-Left": { cx: 260, cy: 425, index: 14 },
-  "D-Right": { cx: 380, cy: 425, index: 15 }
+  X:         { cx: 970, cy: 570, index: 0 },
+  Circle:    { cx: 1020, cy: 520, index: 1 },
+  Square:    { cx: 920, cy: 520, index: 2 },
+  Triangle:  { cx: 970, cy: 470, index: 3 },
+  L1:        { cx: 300, cy: 75, index: 4 },
+  R1:        { cx: 930, cy: 75, index: 5 },
+  L2:        { cx: 300, cy: 30, index: 6, analog: true },
+  R2:        { cx: 930, cy: 30, index: 7, analog: true },
+  L3:        { cx: 420, cy: 530, index: 10 },
+  R3:        { cx: 800, cy: 530, index: 11 },
+  "D-Up":    { cx: 300, cy: 470, index: 12 },
+  "D-Down":  { cx: 300, cy: 570, index: 13 },
+  "D-Left":  { cx: 250, cy: 520, index: 14 },
+  "D-Right": { cx: 350, cy: 520, index: 15 }
 };
 
 function App() {
