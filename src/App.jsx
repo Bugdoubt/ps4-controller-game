@@ -68,7 +68,7 @@ function App() {
   };
 
   const renderShape = (label, cx, cy, shape) => {
-    const size = 25;
+    const size = (["L1", "L2", "R1", "R2"].includes(label)) ? 25 : 50;
     const isActive = label === target;
     const fill = isActive ? "red" : "transparent";
     const stroke = isActive ? "white" : "transparent";
