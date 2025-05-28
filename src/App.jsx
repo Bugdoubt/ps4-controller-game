@@ -85,7 +85,12 @@ function App() {
         return <polygon points={`${cx},${cy + 30} ${cx - 15},${cy - 15} ${cx + 15},${cy - 15}`} fill={fill} stroke={stroke} strokeWidth={3} strokeLinejoin="round" />;
         return <polygon points={`${cx},${cy + 40} ${cx - 30},${cy - 20} ${cx + 30},${cy - 20}`} fill={fill} stroke={stroke} strokeWidth={3} />;
       case "left":
-        return <polygon points={`${cx - 30},${cy} ${cx + 15},${cy - 15} ${cx + 15},${cy + 15}`} fill={fill} stroke={stroke} strokeWidth={3} strokeLinejoin="round" />;
+        return (
+      <>
+        <rect x={cx - 40} y={cy - 20} rx="10" ry="10" width="50" height="40" fill={fill} stroke={stroke} strokeWidth={3} />
+        <polygon points={`${cx + 10},${cy} ${cx + 30},${cy - 12} ${cx + 30},${cy + 12}`} fill={fill} stroke={stroke} strokeWidth={3} strokeLinejoin="round" />
+      </>
+    );
         return <polygon points={`${cx - 40},${cy} ${cx + 20},${cy - 30} ${cx + 20},${cy + 30}`} fill={fill} stroke={stroke} strokeWidth={3} />;
       case "right":
         return <polygon points={`${cx + 30},${cy} ${cx - 15},${cy - 15} ${cx - 15},${cy + 15}`} fill={fill} stroke={stroke} strokeWidth={3} strokeLinejoin="round" />;
