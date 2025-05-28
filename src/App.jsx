@@ -8,20 +8,20 @@ const buttons = [
 ];
 
 const buttonMap = {
-  X: { cx: 725, cy: 295, index: 0 },
-  Circle: { cx: 770, cy: 250, index: 1 },
-  Square: { cx: 680, cy: 250, index: 2 },
-  Triangle: { cx: 725, cy: 200, index: 3 },
-  L1: { cx: 220, cy: 55, index: 4 },
-  R1: { cx: 680, cy: 55, index: 5 },
-  L2: { cx: 220, cy: 15, index: 6, analog: true },
-  R2: { cx: 680, cy: 15, index: 7, analog: true },
-  L3: { cx: 315, cy: 280, index: 10 },
-  R3: { cx: 570, cy: 280, index: 11 },
-  "D-Up": { cx: 210, cy: 200, index: 12 },
-  "D-Down": { cx: 210, cy: 270, index: 13 },
-  "D-Left": { cx: 170, cy: 235, index: 14 },
-  "D-Right": { cx: 250, cy: 235, index: 15 }
+  X: { cx: 950, cy: 510, index: 0 },
+  Circle: { cx: 1015, cy: 440, index: 1 },
+  Square: { cx: 875, cy: 440, index: 2 },
+  Triangle: { cx: 950, cy: 375, index: 3 },
+  L1: { cx: 330, cy: 115, index: 4 },
+  R1: { cx: 880, cy: 115, index: 5 },
+  L2: { cx: 330, cy: 60, index: 6, analog: true },
+  R2: { cx: 880, cy: 60, index: 7, analog: true },
+  L3: { cx: 420, cy: 520, index: 10 },
+  R3: { cx: 800, cy: 520, index: 11 },
+  "D-Up": { cx: 320, cy: 380, index: 12 },
+  "D-Down": { cx: 320, cy: 470, index: 13 },
+  "D-Left": { cx: 260, cy: 425, index: 14 },
+  "D-Right": { cx: 380, cy: 425, index: 15 }
 };
 
 function App() {
@@ -43,8 +43,6 @@ function App() {
   const checkGamepadInput = () => {
     const gp = navigator.getGamepads()[0];
     if (!gp || !gp.connected || !target) return;
-
-    let match = false;
 
     for (const [label, { index, analog }] of Object.entries(buttonMap)) {
       const button = gp.buttons[index];
@@ -72,15 +70,15 @@ function App() {
   return (
     <div className="flex flex-col items-center mt-6">
       <h1 className="text-white text-2xl mb-4">Press: {target}</h1>
-      <div className="relative" style={{ width: 900, height: 400 }}>
+      <div className="relative" style={{ width: 1229, height: 768 }}>
         <img src="/controller_bg.png" alt="Controller" className="absolute top-0 left-0 w-full h-full" />
-        <svg className="absolute top-0 left-0" width="900" height="400">
+        <svg className="absolute top-0 left-0" width="1229" height="768">
           {Object.entries(buttonMap).map(([label, { cx, cy }]) => (
             <g key={label}>
               <circle
                 cx={cx}
                 cy={cy}
-                r={20}
+                r={25}
                 fill={label === target ? "yellow" : "transparent"}
                 stroke={label === target ? "white" : "transparent"}
                 strokeWidth={3}
