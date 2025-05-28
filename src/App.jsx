@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./index.css";
 
 const buttons = [
@@ -27,13 +27,13 @@ const buttonMap = {
 function App() {
   const [target, setTarget] = useState(null);
   const [feedback, setFeedback] = useState("");
-  const [cooldown, setCooldown] = useState(false);
+  const previousState = useRef({});
 
   useEffect(() => {
     pickRandomButton();
-    const interval = setInterval(checkGamepadInput, 100);
+    const interval = setInterval(checkGamepadInput, 50);
     return () => clearInterval(interval);
-  }, [target, cooldown]);
+  }, [target]);
 
   const pickRandomButton = () => {
     const next = buttons[Math.floor(Math.random() * buttons.length)];
@@ -41,22 +41,25 @@ function App() {
   };
 
   const checkGamepadInput = () => {
-    if (cooldown) return;
     const gp = navigator.getGamepads()[0];
     if (!gp || !gp.connected || !target) return;
 
     const { index, analog } = buttonMap[target];
-    const value = analog ? gp.buttons[index]?.value : gp.buttons[index]?.pressed;
+    const button = gp.buttons[index];
+    const wasPressed = previousState.current[index] || false;
+    const isPressed = analog ? button.value > 0.5 : button.pressed;
 
-    if ((analog && value > 0.5) || (!analog && value)) {
+    // Only accept transition from not pressed -> pressed
+    if (!wasPressed && isPressed) {
       setFeedback("✅ Correct!");
-      setCooldown(true);
       setTimeout(() => {
-        setCooldown(false);
         setFeedback("");
         pickRandomButton();
       }, 800);
     }
+
+    // Update state
+    previousState.current[index] = isPressed;
   };
 
   return (
