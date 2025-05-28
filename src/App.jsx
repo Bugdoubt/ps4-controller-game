@@ -7,12 +7,26 @@ const buttons = [
   "D-Up", "D-Down", "D-Left", "D-Right"
 ];
 
-const buttonMap = {}; // Empty for now, user will gather coordinates
+const buttonMap = {
+  Square:    { cx: 912, cy: 209, index: 2 },
+  Triangle:  { cx: 1002, cy: 123, index: 3 },
+  Circle:    { cx: 1093, cy: 212, index: 1 },
+  X:         { cx: 1007, cy: 300, index: 0 },
+  R3:        { cx: 810, cy: 378, index: 11 },
+  L3:        { cx: 412, cy: 377, index: 10 },
+  L1:        { cx: 246, cy: 9, index: 4 },
+  L2:        { cx: 294, cy: 14, index: 6, analog: true },
+  R1:        { cx: 963, cy: 12, index: 5 },
+  R2:        { cx: 1029, cy: 12, index: 7, analog: true },
+  "D-Up":    { cx: 222, cy: 146, index: 12 },
+  "D-Down":  { cx: 223, cy: 275, index: 13 },
+  "D-Left":  { cx: 157, cy: 212, index: 14 },
+  "D-Right": { cx: 284, cy: 214, index: 15 }
+};
 
 function App() {
   const [target, setTarget] = useState(null);
   const [feedback, setFeedback] = useState("");
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const previousState = useRef({});
   const wrongPressTimeout = useRef(null);
 
@@ -53,29 +67,27 @@ function App() {
     }
   };
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePos({
-      x: Math.round(e.clientX - rect.left),
-      y: Math.round(e.clientY - rect.top)
-    });
-  };
-
   return (
     <div className="flex flex-col items-center mt-6">
-      <h1 className="text-white text-xl mb-2">Mouse X: {mousePos.x}, Y: {mousePos.y}</h1>
-      <div
-        className="relative"
-        style={{ width: 1229, height: 768 }}
-        onMouseMove={handleMouseMove}
-      >
-        <img
-          src="/controller_bg.png"
-          alt="Controller"
-          className="absolute top-0 left-0 w-full h-full"
-        />
-        <svg className="absolute top-0 left-0" width="1229" height="768"></svg>
+      <h1 className="text-white text-2xl mb-4">Press: {target}</h1>
+      <div className="relative" style={{ width: 1229, height: 768 }}>
+        <img src="/controller_bg.png" alt="Controller" className="absolute top-0 left-0 w-full h-full" />
+        <svg className="absolute top-0 left-0" width="1229" height="768">
+          {Object.entries(buttonMap).map(([label, { cx, cy }]) => (
+            <g key={label}>
+              <circle
+                cx={cx}
+                cy={cy}
+                r={25}
+                fill={label === target ? "red" : "transparent"}
+                stroke={label === target ? "white" : "transparent"}
+                strokeWidth={3}
+              />
+            </g>
+          ))}
+        </svg>
       </div>
+      <div className="text-white mt-4 h-6">{feedback}</div>
     </div>
   );
 }
