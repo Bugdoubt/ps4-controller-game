@@ -14,10 +14,10 @@ const buttonMap = {
   X:         { cx: 1007, cy: 300, index: 0, shape: "circle" },
   R3:        { cx: 810, cy: 378, index: 11, shape: "circle" },
   L3:        { cx: 412, cy: 377, index: 10, shape: "circle" },
-  L1:        { cx: 246, cy: 9, index: 4, shape: "rect" },
-  L2:        { cx: 294, cy: 14, index: 6, analog: true, shape: "rect" },
-  R1:        { cx: 963, cy: 12, index: 5, shape: "rect" },
-  R2:        { cx: 1029, cy: 12, index: 7, analog: true, shape: "rect" },
+  L1:        { cx: 246, cy: 25, index: 4, shape: "rect" },
+  L2:        { cx: 294, cy: 30, index: 6, analog: true, shape: "rect" },
+  R1:        { cx: 963, cy: 30, index: 5, shape: "rect" },
+  R2:        { cx: 1029, cy: 30, index: 7, analog: true, shape: "rect" },
   "D-Up":    { cx: 222, cy: 146, index: 12, shape: "up" },
   "D-Down":  { cx: 223, cy: 275, index: 13, shape: "down" },
   "D-Left":  { cx: 157, cy: 212, index: 14, shape: "left" },
@@ -97,7 +97,19 @@ function App() {
 
   return (
     <div className="flex flex-col items-center mt-6">
-      <h1 className="text-white text-2xl mb-2 mt-36">Press: {target}</h1>
+      </div>
+      <div className="relative" style={{ width: 1229, height: 768 }}>
+        <img src="/controller_bg.png" alt="Controller" className="absolute top-0 left-0 w-full h-full" />
+        <svg className="absolute top-0 left-0" width="1229" height="768">
+          {Object.entries(buttonMap).map(([label, { cx, cy, shape }]) => (
+            <g key={label}>{renderShape(label, cx, cy, shape)}</g>
+          ))}
+        </svg>
+        <div className="absolute" style={{ top: 600, left: 450 }}>
+          <h1 className="text-white text-2xl">Press: {target}</h1>
+        </div>
+      </div>
+      <div className="text-white mt-4 h-6">{feedback}</div>Press: {target}</h1>
       <div className="relative" style={{ width: 1229, height: 768 }}>
         <img src="/controller_bg.png" alt="Controller" className="absolute top-0 left-0 w-full h-full" />
         <svg className="absolute top-0 left-0" width="1229" height="768">
