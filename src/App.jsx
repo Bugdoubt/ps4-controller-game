@@ -80,16 +80,12 @@ function App() {
         return <rect x={cx - 30} y={cy - 15} width="60" height="30" rx="8" fill={fill} stroke={stroke} strokeWidth={3} />;
       case "up":
         return <polygon points={`${cx},${cy - 40} ${cx - 30},${cy + 20} ${cx + 30},${cy + 20}`} fill={fill} stroke={stroke} strokeWidth={3} />;
-        return <polygon points={`${cx},${cy - 20} ${cx - 15},${cy + 10} ${cx + 15},${cy + 10}`} fill={fill} stroke={stroke} strokeWidth={3} />;
       case "down":
         return <polygon points={`${cx},${cy + 40} ${cx - 30},${cy - 20} ${cx + 30},${cy - 20}`} fill={fill} stroke={stroke} strokeWidth={3} />;
-        return <polygon points={`${cx},${cy + 20} ${cx - 15},${cy - 10} ${cx + 15},${cy - 10}`} fill={fill} stroke={stroke} strokeWidth={3} />;
       case "left":
         return <polygon points={`${cx - 40},${cy} ${cx + 20},${cy - 30} ${cx + 20},${cy + 30}`} fill={fill} stroke={stroke} strokeWidth={3} />;
-        return <polygon points={`${cx - 20},${cy} ${cx + 10},${cy - 15} ${cx + 10},${cy + 15}`} fill={fill} stroke={stroke} strokeWidth={3} />;
       case "right":
         return <polygon points={`${cx + 40},${cy} ${cx - 20},${cy - 30} ${cx - 20},${cy + 30}`} fill={fill} stroke={stroke} strokeWidth={3} />;
-        return <polygon points={`${cx + 20},${cy} ${cx - 10},${cy - 15} ${cx - 10},${cy + 15}`} fill={fill} stroke={stroke} strokeWidth={3} />;
       default:
         return null;
     }
@@ -97,7 +93,6 @@ function App() {
 
   return (
     <div className="flex flex-col items-center mt-6">
-      </div>
       <div className="relative" style={{ width: 1229, height: 768 }}>
         <img src="/controller_bg.png" alt="Controller" className="absolute top-0 left-0 w-full h-full" />
         <svg className="absolute top-0 left-0" width="1229" height="768">
@@ -108,15 +103,6 @@ function App() {
         <div className="absolute" style={{ top: 600, left: 450 }}>
           <h1 className="text-white text-2xl">Press: {target}</h1>
         </div>
-      </div>
-      <div className="text-white mt-4 h-6">{feedback}</div>Press: {target}</h1>
-      <div className="relative" style={{ width: 1229, height: 768 }}>
-        <img src="/controller_bg.png" alt="Controller" className="absolute top-0 left-0 w-full h-full" />
-        <svg className="absolute top-0 left-0" width="1229" height="768">
-          {Object.entries(buttonMap).map(([label, { cx, cy, shape }]) => (
-            <g key={label}>{renderShape(label, cx, cy, shape)}</g>
-          ))}
-        </svg>
       </div>
       <div className="text-white mt-4 h-6">{feedback}</div>
     </div>
