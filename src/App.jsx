@@ -97,7 +97,7 @@ function App() {
 
   return (
     <div className="flex flex-col items-center mt-6">
-      <h1 className="text-white text-2xl mb-4" style={{ marginTop: "200px" }}>Press: {target}</h1>
+      <h1 className="text-white text-2xl mb-2 mt-36">Press: {target}</h1>
       <div className="relative" style={{ width: 1229, height: 768 }}>
         <img src="/controller_bg.png" alt="Controller" className="absolute top-0 left-0 w-full h-full" />
         <svg className="absolute top-0 left-0" width="1229" height="768">
