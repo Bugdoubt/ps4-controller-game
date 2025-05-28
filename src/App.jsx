@@ -3,23 +3,20 @@ import "./index.css";
 
 const buttons = [
   "X", "Circle", "Square", "Triangle",
-  "L1", "L2", "R1", "R2",
-  "D-Up", "D-Down", "D-Left", "D-Right"
+  "L1", "R1", "D-Up", "D-Down", "D-Left", "D-Right"
 ];
 
 const buttonMap = {
-  X: { cx: 280, cy: 250 },
-  Circle: { cx: 320, cy: 210 },
-  Square: { cx: 240, cy: 210 },
-  Triangle: { cx: 280, cy: 170 },
-  L1: { cx: 60, cy: 60 },
-  L2: { cx: 60, cy: 20 },
-  R1: { cx: 500, cy: 60 },
-  R2: { cx: 500, cy: 20 },
-  "D-Up": { cx: 100, cy: 200 },
-  "D-Down": { cx: 100, cy: 260 },
-  "D-Left": { cx: 60, cy: 230 },
-  "D-Right": { cx: 140, cy: 230 }
+  X: { cx: 280, cy: 250, index: 0 },
+  Circle: { cx: 320, cy: 210, index: 1 },
+  Square: { cx: 240, cy: 210, index: 2 },
+  Triangle: { cx: 280, cy: 170, index: 3 },
+  L1: { cx: 60, cy: 60, index: 4 },
+  R1: { cx: 500, cy: 60, index: 5 },
+  "D-Up": { cx: 100, cy: 200, index: 12 },
+  "D-Down": { cx: 100, cy: 260, index: 13 },
+  "D-Left": { cx: 60, cy: 230, index: 14 },
+  "D-Right": { cx: 140, cy: 230, index: 15 }
 };
 
 function App() {
@@ -28,25 +25,30 @@ function App() {
 
   useEffect(() => {
     pickRandomButton();
-    const listener = (e) => {
-      const key = e.key.toUpperCase();
-      if (key === target?.toUpperCase()) {
-        setFeedback("✅ Correct!");
-        setTimeout(() => {
-          pickRandomButton();
-          setFeedback("");
-        }, 1000);
-      } else {
-        setFeedback("❌ Wrong button");
-      }
-    };
-    window.addEventListener("keydown", listener);
-    return () => window.removeEventListener("keydown", listener);
+    const interval = setInterval(checkGamepadInput, 100);
+    return () => clearInterval(interval);
   }, [target]);
 
   const pickRandomButton = () => {
     const next = buttons[Math.floor(Math.random() * buttons.length)];
     setTarget(next);
+  };
+
+  const checkGamepadInput = () => {
+    const gamepads = navigator.getGamepads();
+    const gp = gamepads[0];
+    if (!gp || !gp.connected || !target) return;
+
+    const expectedIndex = buttonMap[target].index;
+    const buttonPressed = gp.buttons[expectedIndex]?.pressed;
+
+    if (buttonPressed) {
+      setFeedback("✅ Correct!");
+      setTimeout(() => {
+        pickRandomButton();
+        setFeedback("");
+      }, 1000);
+    }
   };
 
   return (
